@@ -3,5 +3,7 @@ version: '3'
 services:
   ffprobe-wasm:
     build: .
+    # environment:
+    #   - GITHUB_WORKSPACE=/build
     volumes:
-      - "./:/build"
+      - "./data:/data"

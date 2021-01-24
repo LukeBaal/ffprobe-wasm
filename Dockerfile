@@ -23,7 +23,7 @@ RUN cd /tmp/x264-snapshot-${X264_VERSION} && \
   --extra-cflags="-s USE_PTHREADS=1"
 
 RUN cd /tmp/x264-snapshot-${X264_VERSION} && \
-  emmake make && emmake make install 
+  emmake make && emmake make install
 
 # Get ffmpeg source.
 RUN cd /tmp/ && \
@@ -81,6 +81,6 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
 COPY ./src/ffprobe-wasm-wrapper.cpp /build/src/ffprobe-wasm-wrapper.cpp
 COPY ./Makefile /build/Makefile
 
-WORKDIR /build
+RUN make -C /build
 
-RUN make
+RUN tar -czvf ffprobe-wasm.tar.gz /build/dist

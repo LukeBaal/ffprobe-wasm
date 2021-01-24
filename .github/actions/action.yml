@@ -1,0 +1,26 @@
+name: 'build-wasm-with-docker'
+author: 'Luke Baal'
+description: 'Build wasm module using Docker'
+inputs:
+  module:
+    description: 'Directory of the module to build'
+    default: ''
+    required: false
+
+  name:
+    description: 'Binary executable filename'
+    default: 'program'
+    required: false
+
+  dest:
+    description: 'Destination directory for build-artifacts'
+    default: 'build'
+    required: false
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+branding:
+  icon: terminal
+  color: green
