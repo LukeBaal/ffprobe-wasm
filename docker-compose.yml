@@ -6,4 +6,4 @@ services:
     # environment:
     #   - GITHUB_WORKSPACE=/build
     volumes:
-      - "./data:/data"
+      - "./:/build"

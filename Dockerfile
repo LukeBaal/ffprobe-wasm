@@ -81,6 +81,10 @@ RUN cd /tmp/ffmpeg-${FFMPEG_VERSION} && \
 COPY ./src/ffprobe-wasm-wrapper.cpp /build/src/ffprobe-wasm-wrapper.cpp
 COPY ./Makefile /build/Makefile
 
-RUN make -C /build
+WORKDIR /build
 
-RUN tar -czvf ffprobe-wasm.tar.gz /build/dist
+RUN make
+
+# RUN make -C /build
+
+# RUN tar -czvf ffprobe-wasm.tar.gz /build/dist

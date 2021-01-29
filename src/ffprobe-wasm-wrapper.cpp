@@ -4,6 +4,7 @@
 #include <inttypes.h>
 #include <emscripten.h>
 #include <emscripten/bind.h>
+#include <rational.h>
 
 using namespace emscripten;
 
@@ -34,6 +35,7 @@ typedef struct Stream {
   std::string codec_name;
   std::string format;
   int bit_rate;
+  std::string time_base;
   std::string profile;
   int level;
   int width;
@@ -126,6 +128,7 @@ FileInfoResponse get_file_info(std::string filename) {
         .codec_name = fourcc,
         .format = av_get_pix_fmt_name((AVPixelFormat)pLocalCodecParameters->format),
         .bit_rate = (int)pLocalCodecParameters->bit_rate,
+        .time_base = std::to_string(pFormatContext->streams[i]->time_base.num) + "/" + std::to_string(pFormatContext->streams[i]->time_base.den),
         .profile = avcodec_profile_name(pLocalCodecParameters->codec_id, pLocalCodecParameters->profile),
         .level = (int)pLocalCodecParameters->level,
         .width = (int)pLocalCodecParameters->width,
@@ -280,6 +283,7 @@ EMSCRIPTEN_BINDINGS(structs) {
   .field("codec_name", &Stream::codec_name)
   .field("format", &Stream::format)
   .field("bit_rate", &Stream::bit_rate)
+  .field("time_base", &Stream::time_base)
   .field("profile", &Stream::profile)
   .field("level", &Stream::level)
   .field("width", &Stream::width)
